@@ -12,7 +12,7 @@ float digital_gain = 1; // you shouldn't need to change this, but feel free to s
 // (our ears are more sensitive to frequencies between 1kHz and 3kHz).
 // here, we set a digital gain value for each frequency bin to change the brightness of the spectrogram
 // so it more closely matches how loud we perceive each frequency
-float levelcurve_dB[] = {15, 5, 5, 1, 0, 0, -4, -5, 4, 12};
+float levelcurve_dB[] = {-15, -5, -5, -1, 0, 0, 4, 5, -4, -12};
 
 AudioInputI2S            i2s1;
 AudioMixer4              mixer1;
@@ -66,7 +66,7 @@ void setup() {
 
 float bin_energy(int k, float level) {
   // applies digital gain to each bin to match human perception across frequency ranges
-  return pow(2, 6) * pow(10, -levelcurve_dB[k] / 10) * pow(level, 4);
+  return pow(2, 6) * pow(10, levelcurve_dB[k] / 10) * pow(level, 4);
 }
 
 float FindE(int bands, int bins) {
